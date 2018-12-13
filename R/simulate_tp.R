@@ -2,7 +2,7 @@
 #'
 #' This function runs Monte Carlo simulations over a series of three-point estimates
 #' @export
-#' simulate_tp()
+#' simulate_tp
 
 simulate_tp <- function(x){
 
