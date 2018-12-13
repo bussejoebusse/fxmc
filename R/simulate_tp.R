@@ -1,6 +1,7 @@
 #' A Monte Carlo simulation function
 #'
 #' This function runs Monte Carlo simulations over a series of three-point estimates
+#' @importFrom magrittr %>%
 #' @export
 #' simulate_tp
 
