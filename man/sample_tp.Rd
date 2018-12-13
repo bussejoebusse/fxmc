@@ -4,7 +4,7 @@
 \alias{sample_tp}
 \title{A sampling function}
 \usage{
-sample_tp(x, y)
+sample_tp(n, x)
 }
 \description{
 This function creates randomly sampled three-point estimates
