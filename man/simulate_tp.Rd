@@ -4,7 +4,7 @@
 \alias{simulate_tp}
 \title{A Monte Carlo simulation function}
 \usage{
-simulate_tp()
+simulate_tp(x)
 }
 \description{
 This function runs Monte Carlo simulations over a series of three-point estimates
