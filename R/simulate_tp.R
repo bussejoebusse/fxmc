@@ -12,12 +12,12 @@ simulate_tp <- function(x){
     sample <- x %>%
       dplyr::filter(time == n)
 
-    sample <- data_frame(sim = triangle::rtriangle(100, sample$min, sample$max, sample$ml)) %>%
+    sample <- dplyr::data_frame(sim = triangle::rtriangle(100, sample$min, sample$max, sample$ml)) %>%
       dplyr::mutate(sim_id = 1:100) %>%
       tidyr::spread(sim_id, sim)
   }
 
-  simulations <<- purrr::map_dfr(1:100, apply_tp, .id = "t") %>%
+  simulations <<- purrr::map_dfr(x$time, apply_tp, .id = "t") %>%
   dplyr::mutate(t = as.numeric(t)) %>%
   dplyr::rename_at(2:101, ~ c(paste0("sim_", 1:100))) %>%
   tidyr::gather("sim", "tp_estimate", 2:101)
@@ -27,16 +27,16 @@ simulate_tp <- function(x){
   dplyr::summarise(avg_estimate = mean(tp_estimate)) %>%
   dplyr::arrange(t)
 
-  df_plot <- df %>%
-  tidyr::gather("type", "estimate", 1:3)
+  df_plot <- x %>%
+  tidyr::gather("type", "estimate", 2:4)
 
   simulation_plot <<-
   ggplot2::ggplot() +
-  geom_line(data = simulations,
-            aes(t, tp_estimate, group = sim, colour = sim),
+  ggplot2::geom_line(data = simulations,
+            ggplot2::aes(t, tp_estimate, group = sim, colour = sim),
             show.legend = F,
             alpha = 0.1)+
-  geom_line(data = avg_simulation, aes(t, avg_estimate, group = 1))+
-  geom_line(data = df_plot, aes(time, estimate, group = type), linetype = 2)
+  ggplot2::geom_line(data = avg_simulation, ggplot2::aes(t, avg_estimate, group = 1))+
+  ggplot2::geom_line(data = df_plot, ggplot2::aes(time, estimate, group = type), linetype = 2)
 
 }
